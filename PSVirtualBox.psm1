@@ -388,12 +388,13 @@ Process {
          Write-Verbose "Creating a session object"
          $vsession = New-Object -ComObject "VirtualBox.Session"
         if ($vmachine.State -lt 5) {
+          [string[]]$vmEnv="VAR="
           if ($Headless) {
             Write-Verbose "Starting in headless mode"
-            $vmachine.LaunchVMProcess($vsession,"headless","")
+            $vmachine.LaunchVMProcess($vsession,"headless",$vmEnv)
           }
           else {
-            $vmachine.LaunchVMProcess($vsession,"gui","")
+            $vmachine.LaunchVMProcess($vsession,"gui",$vmEnv)
           }
         }
         else {
